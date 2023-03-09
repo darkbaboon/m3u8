@@ -1,5 +1,6 @@
 # coding: utf-8
 # Copyright 2014 Globo.com Player authors. All rights reserved.
+# Copyright 2023 Ronan RABOUIN
 # Use of this source code is governed by a MIT License
 # license that can be found in the LICENSE file.
 
@@ -12,7 +13,8 @@ from m3u8.model import (M3U8, Segment, SegmentList, PartialSegment,
                         Media, MediaList, PlaylistList, Start,
                         RenditionReport, RenditionReportList, ServerControl,
                         Skip, PartInformation, PreloadHint, DateRange,
-                        DateRangeList, ContentSteering)
+                        DateRangeList, ContentSteering,
+                        ImagePlaylist, Tiles)
 from m3u8.parser import parse, is_url, ParseError
 
 
@@ -21,6 +23,7 @@ __all__ = ('M3U8', 'Segment', 'SegmentList', 'PartialSegment',
             'Media', 'MediaList', 'PlaylistList', 'Start', 'RenditionReport',
             'RenditionReportList', 'ServerControl', 'Skip', 'PartInformation',
             'PreloadHint', 'DateRange', 'DateRangeList', 'ContentSteering',
+            'ImagePlaylist', 'Tiles',
             'loads', 'load', 'parse', 'ParseError')
 
 def loads(content, uri=None, custom_tags_parser=None):

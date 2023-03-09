@@ -1,5 +1,6 @@
 # coding: utf-8
 # Copyright 2014 Globo.com Player authors. All rights reserved.
+# Copyright 2023 Ronan RABOUIN
 # Use of this source code is governed by a MIT License
 # license that can be found in the LICENSE file.
 
@@ -354,7 +355,6 @@ def _parse_image_stream_inf(line, data):
     atribute_parser["program_id"] = int
     atribute_parser["bandwidth"] = int
     atribute_parser["average_bandwidth"] = int
-    atribute_parser["resolution"] = lambda x: tuple(map(int, x.split("x")))
     image_stream_info = _parse_attribute_list(protocol.ext_x_image_stream_inf, line, atribute_parser)
     image_playlist = {'uri': image_stream_info.pop('uri'),
                       'image_stream_info': image_stream_info}
@@ -364,13 +364,11 @@ def _parse_image_stream_inf(line, data):
 
 
 def _parse_tiles(line, data, state):
-    quoted_parser = remove_quotes_parser('uri')
-    attribute_parser = {
-        "resolution": lambda x: tuple(map(int, x.split("x"))),
-        "layout": lambda x: tuple(map(int, x.split("x"))),
-        "duration": lambda x: float(x)
-    }
-    tiles_info = _parse_attribute_list(protocol.ext_x_tiles, line, attribute_parser, quoted_parser)
+    atribute_parser = remove_quotes_parser('uri')
+    atribute_parser["resolution"] = str
+    atribute_parser["layout"] = str
+    atribute_parser["duration"] = float
+    tiles_info = _parse_attribute_list(protocol.ext_x_tiles, line, atribute_parser)
     data['tiles'].append(tiles_info)
 
 
